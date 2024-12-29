@@ -19,7 +19,7 @@ namespace ChineseFamilyRestaurant.Data
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<ProductIngredient> ProductIngredients { get; set; }
 
-        //ModelBuilder
+        //ModelBuilder 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
