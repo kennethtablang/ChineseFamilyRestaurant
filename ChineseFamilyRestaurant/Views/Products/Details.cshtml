@@ -1,0 +1,51 @@
+﻿@model ChineseFamilyRestaurant.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+
+    <div class="card shadow-sm mt-4">
+        <div class="card-header bg-primary text-white">
+            <h4>Product Information</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-4 text-center">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded shadow-sm" style="max-width: 100%; height: auto;" />
+                    }
+                    else
+                    {
+                        <img src="https://via.placeholder.com/150" alt="Default Image" class="img-fluid rounded shadow-sm" />
+                    }
+                </div>
+                <div class="col-md-8">
+                    <dl class="row">
+                        <dt class="col-sm-4">Name:</dt>
+                        <dd class="col-sm-8">@Model.Name</dd>
+
+                        <dt class="col-sm-4">Description:</dt>
+                        <dd class="col-sm-8">@Model.Description</dd>
+
+                        <dt class="col-sm-4">Price:</dt>
+                        <dd class="col-sm-8">$@Model.Price.ToString("0.00")</dd>
+
+                        <dt class="col-sm-4">Stock:</dt>
+                        <dd class="col-sm-8">@Model.Stock</dd>
+
+                        <dt class="col-sm-4">Category:</dt>
+                        <dd class="col-sm-8">@Model.Category?.Name</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-warning btn-sm">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary btn-sm">Back to List</a>
+        </div>
+    </div>
+</div>

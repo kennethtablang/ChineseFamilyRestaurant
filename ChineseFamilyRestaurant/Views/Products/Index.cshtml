@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ChineseFamilyRestaurant.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1 class="mb-4 text-center">Our Products</h1>
+
+<p class="text-center mb-5">
+    <a class="btn btn-success btn-lg" asp-action="Create">
+        <i class="bi bi-plus-circle"></i> Add New Product
+    </a>
+</p>
+
+<div class="container">
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card h-100 shadow border-0">
+                    <img class="card-img-top rounded-top" src="@item.ImageUrl" alt="@item.Name" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-truncate">@item.Name</h5>
+                        <p class="card-text text-muted small text-truncate" title="@item.Description">@item.Description</p>
+                        <div class="mt-auto">
+                            <p class="card-text mb-1"><strong>Price:</strong> $@item.Price</p>
+                            <p class="card-text mb-1"><strong>Stock:</strong> @item.Stock</p>
+                            <p class="card-text mb-1"><strong>Category:</strong> @item.Category?.Name</p>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-0 text-center">
+                        <div class="d-flex justify-content-center">
+                            <a class="btn btn-outline-primary btn-sm me-2" asp-action="Edit" asp-route-id="@item.ProductId">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <a class="btn btn-outline-info btn-sm me-2" asp-action="Details" asp-route-id="@item.ProductId">
+                                <i class="bi bi-info-circle"></i> Details
+                            </a>
+                            <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.ProductId">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

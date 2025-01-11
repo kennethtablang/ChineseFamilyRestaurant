@@ -19,7 +19,7 @@ namespace ChineseFamilyRestaurant.Data
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<ProductIngredient> ProductIngredients { get; set; }
 
-        //ModelBuilder 
+        //ModelBuilder
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -33,20 +33,20 @@ namespace ChineseFamilyRestaurant.Data
                 // Configure relationships
                 entity.HasOne(pi => pi.Product)
                       .WithMany(p => p.ProductIngredients)
-                      .HasForeignKey(pi => pi.ProductId); 
+                      .HasForeignKey(pi => pi.ProductId);
 
                 entity.HasOne(pi => pi.Ingredient)
                       .WithMany(i => i.ProductIngredients)
                       .HasForeignKey(pi => pi.IngredientId);
             });
 
-            //Seed Data 
+            //Seed Data
             modelBuilder.Entity<Category>()
                 .HasData(
                     new Category { CategoryId = 1, Name = "Appetizer"},
                     new Category { CategoryId = 2, Name = "Entree"},
-                    new Category { CategoryId = 3, Name = "Side Dish" }, 
-                    new Category { CategoryId = 4, Name = "Dessert"}, 
+                    new Category { CategoryId = 3, Name = "Side Dish" },
+                    new Category { CategoryId = 4, Name = "Dessert"},
                     new Category { CategoryId = 5, Name = "Beverage"}
                 );
 
