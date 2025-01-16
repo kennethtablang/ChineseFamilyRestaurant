@@ -39,10 +39,26 @@
 
                         <dt class="col-sm-4">Category:</dt>
                         <dd class="col-sm-8">@Model.Category?.Name</dd>
+
+                        <dt class="col-sm-4">Ingredients:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.ProductIngredients != null && Model.ProductIngredients.Any())
+                            {
+                                @foreach (var pi in Model.ProductIngredients)
+                                {
+                                   @pi.Ingredient?.Name<span>,</span>
+                                }
+                            }
+                            else
+                            {
+                                <span>No ingredients assigned</span>
+                            }
+                        </dd>
                     </dl>
                 </div>
             </div>
         </div>
+
         <div class="card-footer text-center">
             <a asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-warning btn-sm">Edit</a>
             <a asp-action="Index" class="btn btn-secondary btn-sm">Back to List</a>

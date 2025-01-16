@@ -1,6 +1,7 @@
 ﻿@model ChineseFamilyRestaurant.Models.Product
 
 @{
+    //this is the create product for the Chinese Family Restaurant
     ViewData["Title"] = "Create Product";
 }
 
@@ -51,6 +52,19 @@
                                 <option value="">Select a category</option>
                             </select>
                             <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Ingredients</label>
+                            <div>
+                                @foreach (var ingredient in (List<ChineseFamilyRestaurant.Models.Ingredient>)ViewBag.Ingredients)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="SelectedIngredients" value="@ingredient.IngredientId" />
+                                            <label class="form-check-label">@ingredient.Name</label>
+                                        </div>
+                                    }
+                            </div>
                         </div>
 
                         <div class="d-grid gap-2">

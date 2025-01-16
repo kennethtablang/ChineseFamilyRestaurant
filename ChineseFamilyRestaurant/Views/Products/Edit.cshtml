@@ -54,6 +54,26 @@
                     <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
 
+                <!-- Ingredients Section -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Ingredients</label>
+                    <div>
+                        @foreach (var ingredient in (List<ChineseFamilyRestaurant.Models.Ingredient>)ViewBag.Ingredients)
+                        {
+                            bool isChecked = Model.ProductIngredients != null && Model.ProductIngredients.Any(pi => pi.IngredientId == ingredient.IngredientId);
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       name="SelectedIngredients"
+                                       value="@ingredient.IngredientId"
+                                @(isChecked ? "checked" : "") />
+                                <label class="form-check-label">@ingredient.Name</label>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+
                 <div class="d-flex justify-content-between">
                     <a asp-action="Index" class="btn btn-secondary">
                         <i class="bi bi-arrow-left"></i> Back to List
