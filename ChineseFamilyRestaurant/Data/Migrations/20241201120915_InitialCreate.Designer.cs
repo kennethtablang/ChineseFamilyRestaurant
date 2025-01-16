@@ -4,6 +4,7 @@ using ChineseFamilyRestaurant.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChineseFamilyRestaurant.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241201120915_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -140,13 +143,12 @@ namespace ChineseFamilyRestaurant.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IngredientId"));
 
                     b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IngredientId");
 
@@ -257,18 +259,12 @@ namespace ChineseFamilyRestaurant.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Stock")
@@ -286,7 +282,6 @@ namespace ChineseFamilyRestaurant.Data.Migrations
                             ProductId = 1,
                             CategoryId = 2,
                             Description = "A Delicious Beef Taco",
-                            ImageUrl = "https://via.placeholder.com/150",
                             Name = "Beef Taco",
                             Price = 2.50m,
                             Stock = 100
@@ -296,7 +291,6 @@ namespace ChineseFamilyRestaurant.Data.Migrations
                             ProductId = 2,
                             CategoryId = 2,
                             Description = "A Delicious Chicken Taco",
-                            ImageUrl = "https://via.placeholder.com/150",
                             Name = "Chicken Taco",
                             Price = 1.99m,
                             Stock = 150
@@ -306,7 +300,6 @@ namespace ChineseFamilyRestaurant.Data.Migrations
                             ProductId = 3,
                             CategoryId = 2,
                             Description = "A Delicious Fish Taco",
-                            ImageUrl = "https://via.placeholder.com/150",
                             Name = "Fish Taco",
                             Price = 3.99m,
                             Stock = 300

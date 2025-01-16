@@ -1,0 +1,94 @@
+﻿@model ChineseFamilyRestaurant.Models.Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Edit Product</h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <input type="hidden" asp-for="ProductId" />
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-bold"></label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="row g-4 mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="Price" class="form-label fw-bold"></label>
+                        <input asp-for="Price" type="number" step="0.01" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Stock" class="form-label fw-bold"></label>
+                        <input asp-for="Stock" type="number" class="form-control" />
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Current Image</label>
+                    <div class="mb-2">
+                        <img src="@Model.ImageUrl" alt="Product Image" class="img-thumbnail" style="max-height: 200px;">
+                    </div>
+                    <label asp-for="ImageFile" class="form-label fw-bold">Upload New Image</label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label fw-bold"></label>
+                    <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId"></select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <!-- Ingredients Section -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Ingredients</label>
+                    <div>
+                        @foreach (var ingredient in (List<ChineseFamilyRestaurant.Models.Ingredient>)ViewBag.Ingredients)
+                        {
+                            bool isChecked = Model.ProductIngredients != null && Model.ProductIngredients.Any(pi => pi.IngredientId == ingredient.IngredientId);
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       name="SelectedIngredients"
+                                       value="@ingredient.IngredientId"
+                                @(isChecked ? "checked" : "") />
+                                <label class="form-check-label">@ingredient.Name</label>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
